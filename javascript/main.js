@@ -28,9 +28,11 @@ const startGame = () => {
 
 // * ADD EVENT LISTENERS
 startBtnDOM.addEventListener("click", startGame);
-window.addEventListener("keydown", () => {
-  // Pollito.jump()
-  gameObj.pollito.jump()
+window.addEventListener("keydown", (event) => {
+  // Pollito.jump() // no funciona accediendo a la clase
+  if (event.code === "Space") {
+    gameObj.pollito.jump()
+  }
 })
 
 

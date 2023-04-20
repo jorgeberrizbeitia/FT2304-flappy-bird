@@ -2,6 +2,7 @@ class Game {
  
   constructor() {
     // propiedades de Game => todos los elementos que existe en el juego
+    // el constructor es TODOS los elementos y valores iniciales del juego.
 
     // el fondo
     this.background = new Image()
@@ -17,6 +18,7 @@ class Game {
     // como controlamos muchos elementos de tubos
     // como contralamos cuando se agregan más tubos al juego
     this.tubosArr = [];
+    this.tuboSeparation = 350;
 
     // contador
     // boton de pausa
@@ -34,9 +36,16 @@ class Game {
     {
       // cuando empieza el juego (el array está vacio)
       // o cuando el ultimo tubo haya pasado la mitad de l canvas
-      // todo los elementos deberian empezar a salir fuera de el canvas
-      let nuevoTubo = new Tubo()
-      this.tubosArr.push(nuevoTubo) // añade un tubo
+
+      let randomPositionY = Math.random() * -150 // 0 y -200
+
+      let nuevoTuboArriba = new Tubo(randomPositionY, true)
+      this.tubosArr.push(nuevoTuboArriba) // añade un tubo
+
+      // que con cada tubo, venga otro más abajo
+      let nuevoTuboAbajo = new Tubo(randomPositionY + this.tuboSeparation, false)
+      this.tubosArr.push(nuevoTuboAbajo)
+      console.log(this.tubosArr.length)
     }
   }
 
@@ -53,7 +62,7 @@ class Game {
   }
 
   gameLoop = () => {
-    console.log("Ejecutando recursion del juego")
+    // console.log("Ejecutando recursion del juego")
 
     // 1. Limpieza del canvas
     // todo

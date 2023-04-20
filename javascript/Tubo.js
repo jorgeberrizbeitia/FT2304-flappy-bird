@@ -1,17 +1,21 @@
 class Tubo {
 
-  constructor() {
+  constructor( positionY, isImageUp ) {
     // propiedades de cada tubo
 
     this.img = new Image()
-    this.img.src = "images/obstacle_top.png" 
+    if (isImageUp === true) {
+      this.img.src = "images/obstacle_top.png" 
+    } else {
+      this.img.src = "images/obstacle_bottom.png" 
+    }
     //? es la de arriba o la de abajo?
 
     this.x = canvas.width
-    this.y = 0
+    this.y = positionY // esto define el valor inicial de la posición Y
     // ? esto deberia ser aleatorio
     this.w = 60
-    this.h = 200
+    this.h = 230
     this.speed = 2
   }
 
