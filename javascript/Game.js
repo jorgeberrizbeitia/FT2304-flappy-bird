@@ -20,6 +20,8 @@ class Game {
     this.tubosArr = [];
     this.tuboSeparation = 350;
 
+    this.isGameOn = true;
+
     // contador
     // boton de pausa
 
@@ -49,12 +51,40 @@ class Game {
     }
   }
 
+  checkCollisionPollitoTubo = () => {
+    // colissiones del pollito contra los tubos
 
+    // this.pollito
+    // this.tubosArr
+    this.tubosArr.forEach((eachTubo) => {
+      // eachTubo vs this.pollito
+      if (
+        eachTubo.x < this.pollito.x + this.pollito.w &&
+        eachTubo.x + eachTubo.w > this.pollito.x &&
+        eachTubo.y < this.pollito.y + this.pollito.h &&
+        eachTubo.h + eachTubo.y > this.pollito.y
+      ) {
+        // Collision detected!
+        console.log("pollito ha colisionado")
+        this.gameOver()
+      }
+    })
 
-  // colissiones del pollito contra los tubos
+  }
+
+  // se termina el juego
+  gameOver = () => {
+    // 1. detener el juego // ! QUE NO SE LES OLVIDE EN SUS JUEGOS
+    this.isGameOn = false;
+
+    // 2. ocultar el canvas
+    canvas.style.display = "none"
+
+    // 3. mostramos la pantalla final
+    gameoverScreenDOM.style.display = "flex"
+  }
   
   // el contador aumente
-  // se termina el juego
   // podemos pausar el juego
 
   drawBackground = () => {
@@ -75,6 +105,7 @@ class Game {
       eachTubo.move()
     })
     this.tubosAparecen()
+    this.checkCollisionPollitoTubo()
     
     // 3. Dibujado de los elementos
     this.drawBackground()
@@ -86,7 +117,9 @@ class Game {
     })
 
     // 4. Recursion (requestAnimationFrame)
-    requestAnimationFrame(this.gameLoop) // 60ps hace gameLoop()
+    if (this.isGameOn === true) {
+      requestAnimationFrame(this.gameLoop) // 60ps hace gameLoop()
+    }
 
   }
 
