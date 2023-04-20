@@ -22,7 +22,10 @@ class Game {
 
     this.isGameOn = true;
 
+
+
     // contador
+    this.score = 0;
     // boton de pausa
 
   }
@@ -48,6 +51,8 @@ class Game {
       let nuevoTuboAbajo = new Tubo(randomPositionY + this.tuboSeparation, false)
       this.tubosArr.push(nuevoTuboAbajo)
       console.log(this.tubosArr.length)
+
+
     }
   }
 
@@ -91,11 +96,34 @@ class Game {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height)
   }
 
+  clearCanvas = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+
+  removeTuboOut = () => {
+    // ! importante tomar en cuenta remover del juego, elementos que salen del canvas.
+    // remover los tubos cuando salen del canvas
+    // cuando el primer elemento del array tenga una posición fuera del canvas, remuevelo.
+    if (this.tubosArr[0].x + this.tubosArr[0].w< 0) {
+      this.tubosArr.shift()
+      //* bonus (aprovecho este momento para incrementar el score)
+      this.score += 0.5
+    }
+
+
+  }
+
+  //* bonus
+  drawScore = () => {
+    ctx.font = "30px Comic Sans MS"
+    ctx.fillText(Math.floor(this.score), 250, 40)
+  }
+
   gameLoop = () => {
     // console.log("Ejecutando recursion del juego")
 
     // 1. Limpieza del canvas
-    // todo
+    this.clearCanvas()
 
     // 2. Acciones y movimientos de los elementos
     this.pollito.gravity()
@@ -106,8 +134,12 @@ class Game {
     })
     this.tubosAparecen()
     this.checkCollisionPollitoTubo()
+    this.removeTuboOut()
+
+    //* bonus
+    this.pollito.jumpFlow()
     
-    // 3. Dibujado de los elementos
+    // 3. Dibujado de los elementos => el orden de los dibujados es IMPORTANTE
     this.drawBackground()
     this.pollito.draw()
     // this.tubo.draw() // test
@@ -115,6 +147,7 @@ class Game {
     this.tubosArr.forEach((eachTubo) => {
       eachTubo.draw()
     })
+    this.drawScore()
 
     // 4. Recursion (requestAnimationFrame)
     if (this.isGameOn === true) {

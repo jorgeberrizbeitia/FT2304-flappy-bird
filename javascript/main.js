@@ -43,7 +43,19 @@ restartBtnDOM.addEventListener("click", restartGame)
 window.addEventListener("keydown", (event) => {
   // Pollito.jump() // no funciona accediendo a la clase
   if (gameObj !== undefined && event.code === "Space") {
-    gameObj.pollito.jump()
+    // gameObj.pollito.jump()
+    gameObj.pollito.jump2()
+  }
+})
+
+//* bonus
+const pauseBtn = document.querySelector("#pause")
+pauseBtn.addEventListener("click", () => {
+  if (gameObj !== undefined && gameObj.isGameOn === true) {
+    gameObj.isGameOn = false;
+  } else {
+    gameObj.isGameOn = true;
+    gameObj.gameLoop()
   }
 })
 
