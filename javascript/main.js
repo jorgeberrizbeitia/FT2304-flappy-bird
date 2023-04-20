@@ -3,6 +3,7 @@
 const splashScreenDOM = document.querySelector("#splash-screen");
 const gameoverScreenDOM = document.querySelector("#gameover-screen");
 const startBtnDOM = document.querySelector("#start-btn");
+const restartBtnDOM = document.querySelector("#restart-btn")
 const canvas = document.querySelector("#my-canvas");
 
 const ctx = canvas.getContext("2d");
@@ -26,8 +27,19 @@ const startGame = () => {
   gameObj.gameLoop()
 };
 
+const restartGame = () => {
+
+  gameoverScreenDOM.style.display = "none";
+  canvas.style.display = "block";
+  gameObj = new Game();
+  gameObj.gameLoop()
+  
+
+}
+
 // * ADD EVENT LISTENERS
 startBtnDOM.addEventListener("click", startGame);
+restartBtnDOM.addEventListener("click", restartGame)
 window.addEventListener("keydown", (event) => {
   // Pollito.jump() // no funciona accediendo a la clase
   if (gameObj !== undefined && event.code === "Space") {
