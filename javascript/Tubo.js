@@ -7,11 +7,11 @@ class Tubo {
     this.img.src = "images/obstacle_top.png" 
     //? es la de arriba o la de abajo?
 
-    this.x = canvas.width - 200
+    this.x = canvas.width
     this.y = 0
     // ? esto deberia ser aleatorio
-    this.w = 150
-    this.h = 300
+    this.w = 60
+    this.h = 200
     this.speed = 2
   }
 
